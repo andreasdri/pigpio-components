@@ -22,6 +22,10 @@ class RGBLed {
       [new LED(ports.red), new LED(ports.green), new LED(ports.blue)];
     this._timer = null;
     this._rgb = Color.rgb(255, 255, 255).rgb().array();
+    process.on('SIGINT', () => {
+      this.stop();
+      process.exit();
+    });
   }
 
   color(color) {
@@ -47,7 +51,7 @@ class RGBLed {
     return this;
   }
 
-  strobe(interval = 100) {
+  strobe(interval = 1000) {
     let on = true; 
     this.on();
     this._timer = setInterval(() => {
@@ -63,12 +67,12 @@ class RGBLed {
     return this;
   }
 
-  pulse(speed = 50) {
-		if (this._timer) {
+  pulse(speed = 100) {
+    if (this._timer) {
       clearInterval(this._timer);
     }
 
-    let r, g, b = 0;
+    let r = 0, g = 0, b = 0;
     this._timer = setInterval(() => {
       this._leds[0].setValue(r);
       this._leds[1].setValue(g);
@@ -84,6 +88,24 @@ class RGBLed {
       }
       if (b > 255) {
         b -= 255;
+      }
+    }, speed);
+    return this;
+  }
+
+  rainbow(speed = 500) {
+    if (this._timer) {
+      clearInterval(this._timer);
+    }
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+    let index = 0;
+
+    setInterval(() => {
+      this.color(colors[index]);
+      this.on();
+      index++;
+      if (index > colors.length - 1) {
+        index = 0;
       }
     }, speed);
     return this;

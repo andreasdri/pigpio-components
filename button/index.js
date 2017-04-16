@@ -10,9 +10,10 @@ class Button extends EventEmitter {
       edge: Gpio.EITHER_EDGE
     });
     this._timer = null;
+    this._onInterrupt();
   }
 
-  onInterrupt() {
+  _onInterrupt() {
     let intervals = 0;
     this._button.on('interrupt', (value) => {
       if (value === 0) {
