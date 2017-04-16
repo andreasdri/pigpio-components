@@ -1,0 +1,11 @@
+{
+  "name": "pigpio-components",
+  "version": "1.0.0",
+  "description": "Button and RGB Led component for Pigpio Node.js library",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "color": "^1.0.3",
+    "pigpio": "^0.5.1"
+  }
+}
