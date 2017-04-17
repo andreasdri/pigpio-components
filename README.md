@@ -29,7 +29,7 @@ rgbLed.pulse();
 
 ```
 
-# API
+## API
 
 Read the source for now.
 

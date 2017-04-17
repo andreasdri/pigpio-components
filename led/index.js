@@ -14,6 +14,10 @@ class LED {
       throw new Error('Value must be between 0 and 255');
     }
   }
+
+  off() {
+    this._led.digitalWrite(0);
+  }
 };
 
 class RGBLed {
@@ -24,7 +28,8 @@ class RGBLed {
     this._rgb = Color.rgb(255, 255, 255).rgb().array();
     process.on('SIGINT', () => {
       this.stop();
-      process.exit();
+      // Wait until other LEDs are cleaned up
+      setTimeout(() => process.exit(1), 100);
     });
   }
 
@@ -39,7 +44,7 @@ class RGBLed {
   }
 
   off() {
-    this._leds.forEach((led) => led.setValue(0));
+    this._leds.forEach((led) => led.off());
     return this;
   }
   
@@ -52,6 +57,10 @@ class RGBLed {
   }
 
   strobe(interval = 1000) {
+    if (this._timer) {
+      clearInterval(this._timer);
+    }
+
     let on = true; 
     this.on();
     this._timer = setInterval(() => {
