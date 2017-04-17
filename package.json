@@ -1,6 +1,6 @@
 {
   "name": "pigpio-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Button and RGB Led component for Pigpio Node.js library",
   "keywords": ["raspberry", "pi", "pigpio", "button", "led", "rgb"],
   "repository": {
