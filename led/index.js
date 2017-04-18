@@ -109,7 +109,7 @@ class RGBLed {
     const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
     let index = 0;
 
-    setInterval(() => {
+    this._timer = setInterval(() => {
       this.color(colors[index]);
       this.on();
       index++;
