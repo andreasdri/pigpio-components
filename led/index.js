@@ -1,9 +1,13 @@
 const { Gpio } = require('pigpio');
 const Color = require('color');
 
-class LED {
+class Led {
   constructor(gpio) {
     this._led = new Gpio(gpio, { mode: Gpio.OUTPUT });
+    process.on('SIGINT', () => {
+      this.off();
+      setTimeout(() => process.exit(1), 100);
+    });
   }
   
   setValue(val) {
@@ -15,6 +19,10 @@ class LED {
     }
   }
 
+  on() {
+    this.setValue(255);
+  }
+
   off() {
     this._led.digitalWrite(0);
   }
@@ -23,7 +31,7 @@ class LED {
 class RGBLed {
   constructor(ports) {
     this._leds =
-      [new LED(ports.red), new LED(ports.green), new LED(ports.blue)];
+      [new Led(ports.red), new Led(ports.green), new Led(ports.blue)];
     this._timer = null;
     this._rgb = Color.rgb(255, 255, 255).rgb().array();
     process.on('SIGINT', () => {
@@ -121,5 +129,5 @@ class RGBLed {
   }
 }
 
-module.exports = RGBLed;
+module.exports = { RGBLed, Led };
 

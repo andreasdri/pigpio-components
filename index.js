@@ -1,6 +1,6 @@
 
 const Button = require('./button');
-const RGBLed = require('./led');
+const { RGBLed, Led } = require('./led');
 
-module.exports = { Button, RGBLed };
+module.exports = { Button, RGBLed, Led };
 
