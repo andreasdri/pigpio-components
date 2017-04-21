@@ -31,6 +31,13 @@ class Button extends EventEmitter {
         intervals = 0;
         this.emit('long press');
       }
+      else {
+        if (this._timer) {
+          clearInterval(this._timer);
+          intervals = 0;
+        }
+      }
+
     });
   }
 };
