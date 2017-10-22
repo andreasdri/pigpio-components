@@ -18,6 +18,10 @@ class Led {
       throw new Error('Value must be between 0 and 255');
     }
   }
+  
+  getValue() {
+    return(this._led.getPwmDutyCycle());
+  }
 
   on() {
     this.setValue(255);
@@ -44,6 +48,11 @@ class RGBLed {
   color(color) {
     this._rgb = Color(color).rgb().array();
     return this;
+  }
+  
+  getColor() {
+    this._leds.forEach((led, index) => led.getValue());
+    return this._rgb;
   }
 
   on() {
