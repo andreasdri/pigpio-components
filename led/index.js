@@ -20,7 +20,7 @@ class Led {
   }
   
   getValue() {
-    return(this._led.getPwmDutyCycle());
+    return this._led.getPwmDutyCycle();
   }
 
   on() {
